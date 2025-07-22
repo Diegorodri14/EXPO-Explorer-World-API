@@ -1,4 +1,4 @@
-package Explorer.World.Explorer.World.Entities.Clientes;
+package Explorer.World.Explorer.World.Entities.Viajes;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @Entity
 @Table (name = "CLIENTES")
 @Getter @Setter @ToString @EqualsAndHashCode
-public class ClientesEntity {
+public class ViajesEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "sq_Clientes")

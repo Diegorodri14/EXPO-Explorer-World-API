@@ -1,10 +1,10 @@
-package Explorer.World.Explorer.World.Service.Clientes;
+package Explorer.World.Explorer.World.Service.Viajes;
 
-import Explorer.World.Explorer.World.Entities.Clientes.ClientesEntity;
-import Explorer.World.Explorer.World.Exception.ExcepcionClienteNoEncontrado;
-import Explorer.World.Explorer.World.Exception.ExcepcionClienteNoRegistrado;
-import Explorer.World.Explorer.World.Models.DTO.ClientesDTO.ClientesDTO;
-import Explorer.World.Explorer.World.Repositories.Clientes.ClientesRepository;
+import Explorer.World.Explorer.World.Entities.Viajes.ViajesEntity;
+import Explorer.World.Explorer.World.Exception.ExcepcionViajeNoEncontrado;
+import Explorer.World.Explorer.World.Exception.ExcepcionViajeNoRegistrado;
+import Explorer.World.Explorer.World.Models.DTO.ViajesDTO.ViajesDTO;
+import Explorer.World.Explorer.World.Repositories.Viajes.ViajesRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,51 +16,51 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class ClientesService {
+public class ViajesService {
 
     @Autowired
-    ClientesRepository repo;
+    ViajesRepository repo;
 
-    public List<ClientesDTO> obtenerClientes(){
-        List <ClientesEntity> lista = repo.findAll();
+    public List<ViajesDTO> obtenerViajes(){
+        List <ViajesEntity> lista = repo.findAll();
         return lista.stream()
                 .map(this::ConvertirADTO)
                 .collect(Collectors.toList());
 
     }
 
-    private ClientesDTO ConvertirADTO(ClientesEntity clientes){
+    private ViajesDTO ConvertirADTO(ViajesEntity viajes){
 
-        ClientesDTO dto = new ClientesDTO();
+        ViajesDTO dto = new ViajesDTO();
 
-        dto.setIdCliente(clientes.getId());
-        dto.setNombreCliente(clientes.getNombre());
-        dto.setApellidoCliente(clientes.getApellido());
-        dto.setEmailCliente(clientes.getCorreo());
-        dto.setTelefono(clientes.getTelefono());
-        dto.setDireccion(clientes.getDireccion());
-        dto.setDUI(clientes.getDui());
+        dto.setIdCliente(viajes.getId());
+        dto.setNombreCliente(viajes.getNombre());
+        dto.setApellidoCliente(viajes.getApellido());
+        dto.setEmailCliente(viajes.getCorreo());
+        dto.setTelefono(viajes.getTelefono());
+        dto.setDireccion(viajes.getDireccion());
+        dto.setDUI(viajes.getDui());
 
         return dto;
     }
 
-    public ClientesDTO InsertarDatos(ClientesDTO data) {
+    public ViajesDTO InsertarDatos(ViajesDTO data) {
         if (data == null || data.getEmailCliente() == null || data.getEmailCliente().isEmpty()){
             throw new IllegalArgumentException("El email del cliente no pueden ser nulos");
         }
         try {
-            ClientesEntity entity =  ConvertirAEntity(data);
-            ClientesEntity usuarioGuardado = repo.save(entity);
-            return ConvertirADTO(usuarioGuardado);
+            ViajesEntity entity =  ConvertirAEntity(data);
+            ViajesEntity viajeGuardado = repo.save(entity);
+            return ConvertirADTO(viajeGuardado);
         }
         catch (Exception e) {
             log.error("Error al regitrar el usuario: " + e.getMessage());
-            throw new ExcepcionClienteNoRegistrado("Error al registrar el usuario.");
+            throw new ExcepcionViajeNoRegistrado("Error al registrar el usuario.");
         }
     }
 
-    private ClientesEntity ConvertirAEntity(ClientesDTO data) {
-        ClientesEntity entity = new ClientesEntity();
+    private ViajesEntity ConvertirAEntity(ViajesDTO data) {
+        ViajesEntity entity = new ViajesEntity();
         entity.setNombre(data.getNombreCliente());
         entity.setApellido(data.getApellidoCliente());
         entity.setCorreo(data.getEmailCliente());
@@ -71,10 +71,10 @@ public class ClientesService {
         return entity;
     }
 
-    public ClientesDTO actualizarUsuario(Long id, @Valid ClientesDTO json) {
+    public ViajesDTO actualizarUsuario(Long id, @Valid ViajesDTO json) {
         //1. Verificar la existencia del usuario
 
-        ClientesEntity ClienteExis = repo.findById(id).orElseThrow(() -> new ExcepcionClienteNoEncontrado("Usuario no encontrado"));
+        ViajesEntity ClienteExis = repo.findById(id).orElseThrow(() -> new ExcepcionViajeNoEncontrado("Usuario no encontrado"));
 
         //2. Convertir los datos de DTO a Entity
 
@@ -87,7 +87,7 @@ public class ClientesService {
 
         //3. Guardar los cambios(nuevos valores)
 
-        ClientesEntity ClienteActualizado = repo.save(ClienteExis);
+        ViajesEntity ClienteActualizado = repo.save(ClienteExis);
 
         //4. Convertir los datos de Entity a DTO
 
@@ -97,9 +97,9 @@ public class ClientesService {
     public boolean removerUsuario (Long id){
         try{
             //1.Validar la existencia del usuario
-            ClientesEntity ClienteExis = repo.findById(id).orElse(null);
+            ViajesEntity ViajeExist = repo.findById(id).orElse(null);
             //2.Eliminar al usuario
-            if (ClienteExis != null){
+            if (ViajeExist != null){
                 repo.deleteById(id);
                 return true;
             }else {
