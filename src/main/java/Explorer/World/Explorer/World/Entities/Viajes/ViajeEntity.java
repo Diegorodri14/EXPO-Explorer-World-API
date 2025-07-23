@@ -9,7 +9,7 @@ import lombok.ToString;
 @Entity
 @Table (name = "CLIENTES")
 @Getter @Setter @ToString @EqualsAndHashCode
-public class ViajesEntity {
+public class ViajeEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "sq_Clientes")

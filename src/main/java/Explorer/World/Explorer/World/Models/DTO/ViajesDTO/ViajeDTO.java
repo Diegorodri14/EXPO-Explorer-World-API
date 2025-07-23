@@ -6,13 +6,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.text.Format;
 import java.util.Date;
 
 @Getter @Setter @ToString @EqualsAndHashCode
-public class ViajesDTO {
+public class ViajeDTO {
 
 
     private Long IDVIAJE;
