@@ -6,17 +6,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Entity
-@Table (name = "EMPLEADOS")
-@Getter @Setter @ToString @EqualsAndHashCode
+@Table (name = "Empleados")
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class EmpleadoEntity {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_Empleados")
-    @SequenceGenerator(name = "sq_Empleados", sequenceName = "sq_Empleados", allocationSize = 1)
+    @SequenceGenerator(name = "sq_Empleados", sequenceName = "sq_Empleados", allocationSize = 1, initialValue = 1)
     @Column (name = "IDEMPLEADO")
     private Long id;
 
@@ -38,17 +39,17 @@ public class EmpleadoEntity {
 
 
     @Column(name = "FECHANACIMIENTO")
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 
 
     @Column(name = "TELEFONO")
-    private Long telefono;
+    private String telefono;
 
 
     @Column(name = "DIRECCION")
     private String direccion;
 
     @Column(name = "SALARIO")
-    private Number salario;
+    private Double salario;
 
 }

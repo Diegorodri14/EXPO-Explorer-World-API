@@ -1,40 +1,55 @@
 package Explorer.World.Explorer.World.Models.DTO.EmpleadosDTO;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+@JsonPropertyOrder({
+        "idEmpleado",
+        "idRango",
+        "nombreEmpleado",
+        "apellidoEmpleado",
+        "emailEmpleado",
+        "fechaNacimiento",
+        "telefono",
+        "direccion",
+        "salario"
+})
 
 @Getter @Setter @ToString @EqualsAndHashCode
 public class EmpleadoDTO {
 
     private Long IdEmpleado;
 
-    @NotBlank
+
+    @NotNull (message = "El campo IdRango tiene que tener un valor")
+    @Positive(message = "El valor id rango debe ser positivo")
+    private Integer IdRango;
+
+    @NotBlank(message = "El nombre del empleado no puede estar vacío")
+    @Size(max = 35, message = "El estado no puede exceder los 20 caracteres")
     private String NombreEmpleado;
 
-    @NotBlank
+    @NotBlank(message = "El apellidos del empleado no puede estar vacío")
+    @Size(max = 35, message = "El estado no puede exceder los 20 caracteres")
     private String ApellidoEmpleado;
 
-    @Email (message = "Debe de ser un correo valido")
+    @NotBlank(message = "El correo del empleado no puede estar vacío")
+    @Email(message = "Debe de ser un correo valido")
     private String EmailEmpleado;
 
-    @DateTimeFormat (style = "DD/MM/YYYY")
-    private Date FechaNacimiento;
+    @NotBlank(message = "La fecha de nacimiento del empleado no puede estar vacío")
+    private String FechaNacimiento;
 
-    @NotBlank
-    private Long Telefono;
+    @NotBlank(message = "El telefono del empleado no puede estar vacío")
+    private String Telefono;
 
     private String Direccion;
 
-    @Size (min = 10, message = "El salario debe de ser menos de 10 digitos")
-    private Number Salario;
+    private Double Salario;
 
-    @NotNull (message = "El campo IdCargo tiene que tener un valor")
-    @Positive(message = "El valor id rango debe ser positivo")
-    private Integer IdRango;
 }
+
